@@ -376,6 +376,7 @@ public class TransactionBuildingService(IDbContextFactory<CoinectaDbContext> dbC
         CoinSelection stakeKeyInputsResult = CoinectaUtils.GetCoinSelection([nftOutput], walletUtxos, walletAddress.ToString());
 
         stakeKeyInputsResult.SelectedUtxos.ForEach(input => txBodyBuilder.AddInput(input));
+        stakeKeyInputsResult.ChangeOutputs.ForEach(change => txBodyBuilder.AddOutput(change));
         stakeKeyInputsResult.SelectedUtxos.ForEach(utxo => walletUtxos.Remove(item: utxo));
 
         // Add last change output to the wallet output
